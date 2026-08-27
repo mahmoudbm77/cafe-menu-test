@@ -1,0 +1,258 @@
+/* ============================
+   Fonts
+============================ */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
+/* ============================
+   Reset
+============================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================
+   Base / Body
+============================ */
+body {
+    width: 100%;
+    direction: rtl;
+    text-align: center;
+    min-height: 100vh;
+    background: radial-gradient(
+        circle at 50% 25%,
+        rgb(42, 28, 21) 0%,   /* Warm roasted coffee center */
+        rgb(22, 14, 10) 60%,  /* Deep espresso */
+        rgb(10, 6, 4) 100%    /* Near-black base */
+    );
+    background-attachment: fixed;
+    font-family: 'Cairo', sans-serif;
+    color: #f3e9d9;
+}
+
+/* ============================
+   Hero (logo + welcome text)
+============================ */
+.hero {
+    width: 100%;
+    padding-bottom: 10px;
+    background: radial-gradient(
+        circle at 50% 0%,
+        rgba(217, 142, 61, 0.18) 0%,
+        rgba(217, 142, 61, 0.05) 45%,
+        transparent 75%
+    );
+}
+
+/* ============================
+   Logo
+============================ */
+#logo-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 40px;
+    text-align: center;
+}
+
+#logo-div img {
+    width: 220px;
+    max-width: 55%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 4px solid #d98e3d;
+    box-shadow: 0 0 35px rgba(217, 142, 61, 0.45);
+    background: #111;
+}
+
+/* ============================
+   Welcome Text
+============================ */
+.welcome-text {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.welcome-text p {
+    padding-top: 25px;
+    font-size: 34px;
+    letter-spacing: 1px;
+    color: #d98e3d;
+}
+
+.welcome-text h1 {
+    padding: 10px 0 25px;
+    font-size: 44px;
+    color: white;
+    line-height: 1.3;
+}
+
+.welcome-text h1 span {
+    color: #d98e3d;
+}
+
+/* ============================
+   Section Titles (e.g. "الأصناف")
+============================ */
+.section-heading {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.section-heading h1 {
+    display: inline-block;
+    position: relative;
+    padding: 10px 10px 15px;
+    font-size: 56px;
+    color: antiquewhite;
+}
+
+.section-heading h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 3px;
+    background: #d98e3d;
+    border-radius: 2px;
+}
+
+/* ============================
+   Categories Grid
+============================ */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
+    gap: 12px;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .categories {
+        grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
+    }
+
+    #logo-div img {
+        width: 170px;
+    }
+
+    .welcome-text p {
+        font-size: 26px;
+    }
+
+    .welcome-text h1 {
+        font-size: 34px;
+    }
+
+    .section-heading h1 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 600px) {
+    .categories {
+        grid-template-columns: repeat(1, 1fr); /* Mobile: 1 column */
+    }
+
+    #logo-div {
+        padding-top: 25px;
+    }
+
+    #logo-div img {
+        width: 130px;
+    }
+
+    .welcome-text p {
+        font-size: 20px;
+        padding-top: 15px;
+    }
+
+    .welcome-text h1 {
+        font-size: 26px;
+        padding: 8px 0 18px;
+    }
+
+    .section-heading h1 {
+        font-size: 30px;
+    }
+}
+
+/* ============================
+   Category Card
+============================ */
+.category-item {
+    position: relative;
+    width: 100%;
+}
+
+/* The link wraps the image, overlay, name and arrow */
+.category-item a {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+/* Image fills the card, cropped to a consistent ratio */
+.category-item img {
+    width: 100%;
+    height: 200px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+/* Dark gradient overlay so text/button stay readable over any image */
+.category-item a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        transparent 75%
+    );
+}
+
+/* Category name overlaid bottom-right */
+.category-name {
+    position: absolute;
+    z-index: 2;
+    bottom: 14px;
+    right: 18px;
+    left: 55px; /* leaves room for the arrow button */
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    text-align: right;
+}
+
+/* Arrow button overlaid bottom-left */
+.arrow-btn {
+    position: absolute;
+    z-index: 2;
+    bottom: 14px;
+    left: 14px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
