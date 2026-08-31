@@ -1,0 +1,228 @@
+/* ============================
+   Cart System — shared styles
+   Link this on every page alongside cart.js
+============================ */
+
+/* Floating cart button */
+#cart-fab {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #d98e3d;
+    color: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+#cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Overlay */
+#cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#cart-overlay.open {
+    display: flex;
+}
+
+/* Modal */
+#cart-modal {
+    width: 100%;
+    max-width: 480px;
+    max-height: 80vh;
+    background: #1a1a1a;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    direction: rtl;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    color: #fff;
+}
+
+@media (min-width: 600px) {
+    #cart-overlay {
+        align-items: center;
+    }
+    #cart-modal {
+        border-radius: 20px;
+        max-height: 70vh;
+    }
+}
+
+.cart-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.cart-modal-header h2 {
+    font-size: 20px;
+}
+
+#cart-close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 20px;
+}
+
+.cart-empty-msg {
+    text-align: center;
+    color: #999;
+    padding: 30px 0;
+}
+
+.cart-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a2a2a;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cart-row-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cart-row-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.cart-row-price {
+    color: #d98e3d;
+    font-size: 14px;
+}
+
+.cart-row-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: rgba(217, 142, 61, 0.15);
+    border-color: #d98e3d;
+}
+
+.qty-value {
+    min-width: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #e53935;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+#cart-modal-footer {
+    padding: 16px 20px 20px;
+    border-top: 1px solid #333;
+}
+
+#cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+#cart-total-value {
+    color: #d98e3d;
+}
+
+#cart-send-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #25D366; /* WhatsApp green */
+    color: #0d0d0d;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#cart-send-btn:hover {
+    background: #1ebe5b;
+}
+
+/* "Add to cart" button on each menu item */
+.add-to-cart {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: 1px solid #d98e3d;
+    border-radius: 8px;
+    background: transparent;
+    color: #d98e3d;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background: rgba(217, 142, 61, 0.15);
+}
