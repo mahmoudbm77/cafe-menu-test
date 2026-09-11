@@ -55,6 +55,14 @@ function removeFromCart(name) {
     renderCartModal();
 }
 
+function clearCart() {
+    if (getCart().length === 0) return;
+    const confirmed = confirm("هل أنت متأكد إنك عايز تلغي الطلب بالكامل؟");
+    if (!confirmed) return;
+    saveCart([]);
+    renderCartModal();
+}
+
 function getCartTotal() {
     return getCart().reduce((sum, item) => sum + item.price * item.qty, 0);
 }
@@ -99,6 +107,7 @@ function injectCartUI() {
                     <span id="cart-total-value">0.00 د.ل</span>
                 </div>
                 <button id="cart-send-btn">إرسال الطلب عبر واتساب</button>
+                <button id="cart-clear-btn">إلغاء الطلب بالكامل</button>
             </div>
         </div>
     `;
@@ -112,6 +121,9 @@ function injectCartUI() {
 
     // Send to WhatsApp
     document.getElementById("cart-send-btn").addEventListener("click", sendCartToWhatsApp);
+
+    // Clear whole cart
+    document.getElementById("cart-clear-btn").addEventListener("click", clearCart);
 
     updateCartBadge();
 }
