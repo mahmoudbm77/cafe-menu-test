@@ -132,13 +132,15 @@ body {
 .categories {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
-    gap: 12px;
+    gap: 16px;
+    padding: 0 40px 40px;   /* مسافة على الجنبين وتحت، على كل الشاشات */
     text-align: center;
 }
 
 @media (max-width: 900px) {
     .categories {
         grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
+        padding: 0 25px 30px;
     }
 
     #logo-div img {
@@ -161,6 +163,8 @@ body {
 @media (max-width: 600px) {
     .categories {
         grid-template-columns: repeat(1, 1fr); /* Mobile: 1 column */
+        padding: 0 18px 24px;
+        gap: 18px;   /* مسافة أكبر بين الكروت لما يبقوا فوق بعض عمود واحد */
     }
 
     #logo-div {

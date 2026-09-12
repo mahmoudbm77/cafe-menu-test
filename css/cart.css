@@ -216,6 +216,134 @@
     background: #1ebe5b;
 }
 
+/* ============================
+   Toast notification
+============================ */
+#toast-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    max-width: 90%;
+    background: #14100d;
+    border: 1px solid rgba(217, 142, 61, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(217, 142, 61, 0.15),
+                0 0 24px rgba(217, 142, 61, 0.35),
+                0 8px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    direction: rtl;
+}
+
+#toast-container.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(217, 142, 61, 0.15);
+    color: #d98e3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toast-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.toast-message {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ============================
+   Custom confirm dialog (replaces browser's native confirm())
+============================ */
+#confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+}
+
+#confirm-overlay.open {
+    display: flex;
+}
+
+#confirm-box {
+    width: 90%;
+    max-width: 340px;
+    background: #1a1a1a;
+    border: 1px solid rgba(217, 142, 61, 0.4);
+    border-radius: 18px;
+    box-shadow: 0 0 24px rgba(217, 142, 61, 0.25),
+                0 8px 28px rgba(0, 0, 0, 0.5);
+    padding: 22px 20px;
+    direction: rtl;
+    text-align: center;
+}
+
+#confirm-message {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#confirm-actions {
+    display: flex;
+    gap: 10px;
+}
+
+#confirm-actions button {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#confirm-yes-btn {
+    border: none;
+    background: #e53935;
+    color: #fff;
+}
+
+#confirm-yes-btn:hover {
+    background: #c62828;
+}
+
+#confirm-no-btn {
+    border: 1px solid #444;
+    background: transparent;
+    color: #ccc;
+}
+
+#confirm-no-btn:hover {
+    border-color: #777;
+    color: #fff;
+}
+
 #cart-clear-btn {
     width: 100%;
     margin-top: 10px;

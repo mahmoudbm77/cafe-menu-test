@@ -12,6 +12,77 @@ const WHATSAPP_NUMBER = "218942951769"; // TODO: غيّر هذا الرقم لر
 
 const CART_STORAGE_KEY = "cafeCinnabonCart";
 
+/* ---- TOAST NOTIFICATION ---- */
+let toastTimeout = null;
+
+function injectToastUI() {
+    const toast = document.createElement("div");
+    toast.id = "toast-container";
+    toast.innerHTML = `
+        <span class="toast-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </span>
+        <span class="toast-message"></span>
+    `;
+    document.body.appendChild(toast);
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast-container");
+    if (!toast) return;
+    toast.querySelector(".toast-message").textContent = message;
+
+    clearTimeout(toastTimeout);
+    toast.classList.add("show");
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2200);
+}
+
+/* ---- CUSTOM CONFIRM DIALOG (replaces browser's native confirm()) ---- */
+function injectConfirmUI() {
+    const overlay = document.createElement("div");
+    overlay.id = "confirm-overlay";
+    overlay.innerHTML = `
+        <div id="confirm-box">
+            <p id="confirm-message"></p>
+            <div id="confirm-actions">
+                <button id="confirm-yes-btn">نعم، إلغاء</button>
+                <button id="confirm-no-btn">تراجع</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeConfirmDialog(false);
+    });
+    document.getElementById("confirm-no-btn").addEventListener("click", () => closeConfirmDialog(false));
+    document.getElementById("confirm-yes-btn").addEventListener("click", () => closeConfirmDialog(true));
+}
+
+let confirmResolveCallback = null;
+
+function showConfirm(message) {
+    const overlay = document.getElementById("confirm-overlay");
+    if (!overlay) return Promise.resolve(false);
+
+    document.getElementById("confirm-message").textContent = message;
+    overlay.classList.add("open");
+
+    return new Promise((resolve) => {
+        confirmResolveCallback = resolve;
+    });
+}
+
+function closeConfirmDialog(result) {
+    document.getElementById("confirm-overlay").classList.remove("open");
+    if (confirmResolveCallback) {
+        confirmResolveCallback(result);
+        confirmResolveCallback = null;
+    }
+}
+
 /* ---- STORAGE HELPERS ---- */
 function getCart() {
     const raw = localStorage.getItem(CART_STORAGE_KEY);
@@ -33,6 +104,7 @@ function addToCart(name, price) {
     }
     saveCart(cart);
     renderCartModal(); // refresh modal content if it's open
+    showToast(`تمت إضافة ${name} للسلة`);
 }
 
 function updateQty(name, delta) {
@@ -55,12 +127,13 @@ function removeFromCart(name) {
     renderCartModal();
 }
 
-function clearCart() {
+async function clearCart() {
     if (getCart().length === 0) return;
-    const confirmed = confirm("هل أنت متأكد إنك عايز تلغي الطلب بالكامل؟");
+    const confirmed = await showConfirm("هل أنت متأكد إنك عايز تلغي الطلب بالكامل؟");
     if (!confirmed) return;
     saveCart([]);
     renderCartModal();
+    showToast("تم إلغاء الطلب");
 }
 
 function getCartTotal() {
@@ -85,7 +158,7 @@ function injectCartUI() {
     const fab = document.createElement("div");
     fab.id = "cart-fab";
     fab.innerHTML = `
-        🛒
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         <span id="cart-badge"></span>
     `;
     fab.addEventListener("click", openCartModal);
@@ -178,7 +251,7 @@ function renderCartModal() {
 function sendCartToWhatsApp() {
     const cart = getCart();
     if (cart.length === 0) {
-        alert("السلة فارغة، أضف بعض الأصناف أولاً");
+        showToast("السلة فارغة، أضف بعض الأصناف أولاً");
         return;
     }
 
@@ -206,5 +279,7 @@ function wireAddToCartButtons() {
 /* ---- INIT ---- */
 document.addEventListener("DOMContentLoaded", () => {
     injectCartUI();
+    injectToastUI();
+    injectConfirmUI();
     wireAddToCartButtons();
 });
